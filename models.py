@@ -35,7 +35,7 @@ class User(db.Model):
     
     # relationships
     favorites = db.relationship('Favorite', backref='users')
-    resorts = db.relationship('Resort', backref='users', secondary='favorites')
+    resorts = db.relationship('Resort', backref='users', secondary='favorites', cascade='all, delete', passive_deletes=True)
 
     searches = db.relationship('Search', backref='users')
     searched_resorts = db.relationship('Resort', backref='users', secondary='searches')
@@ -65,7 +65,7 @@ class Resort(db.Model):
 
 
 class Favorite(db.Model):
-    __tablename__ = "favorites"
+    __tablename__ = "favorite"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
@@ -78,7 +78,7 @@ class Favorite(db.Model):
 
 
 class Search(db.Model):
-    __tablename__ = "searches"
+    __tablename__ = "search"
     
     id = db.Column(db.Integer, primary_key=True)
     
