@@ -32,9 +32,18 @@ class User(db.Model):
                             onupdate=datetime.datetime.now, 
                             nullable=False)
 
+    
+    # relationships
+    favorites = db.relationship('Favorite', backref='users')
+    resorts = db.relationship('Resort', backref='users', secondary='favorites')
 
-class Resorts(db.Model):
-    __tablename__ = "resorts"
+    searches = db.relationship('Search', backref='users')
+    searched_resorts = db.relationship('Resort', backref='users', secondary='searches')
+    
+
+
+class Resort(db.Model):
+    __tablename__ = "resort"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
@@ -55,21 +64,21 @@ class Resorts(db.Model):
                             nullable=False)
 
 
-class Favorites(db.Model):
+class Favorite(db.Model):
     __tablename__ = "favorites"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
-    resort_id = db.Column(db.Integer, db.ForeignKey('resorts.id'))
+    resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
     
     timestamp = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
 
-    
 
-class History(db.Model):
-    __tablename__ = "history"
+
+class Search(db.Model):
+    __tablename__ = "searches"
     
     id = db.Column(db.Integer, primary_key=True)
     
@@ -77,4 +86,4 @@ class History(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
-    resort_id = db.Column(db.Integer, db.ForeignKey('resorts.id'))
+    resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
