@@ -35,7 +35,7 @@ class User(db.Model):
     
     # relationships
     favorites = db.relationship('Favorite', backref='users')
-    resorts = db.relationship('Resort', backref='users', secondary='favorites', cascade='all, delete', passive_deletes=True)
+    resorts = db.relationship('Resort', backref='users', secondary='favorites')
 
     searches = db.relationship('Search', backref='users')
     searched_resorts = db.relationship('Resort', backref='users', secondary='searches')
