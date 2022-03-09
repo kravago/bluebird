@@ -28,8 +28,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
 
     created_at = db.Column(db.DateTime, 
-                            default=datetime.datetime.now, 
-                            onupdate=datetime.datetime.now, 
+                            default=datetime.datetime.now,
                             nullable=False)
 
     updated_at = db.Column(db.DateTime, 
@@ -92,13 +91,12 @@ class Resort(db.Model):
     lon = db.Column(db.Float, nullable=False)
     
     created_at = db.Column(db.DateTime, 
-                            default=datetime.datetime.now, 
-                            onupdate=datetime.datetime.now, 
+                            default=datetime.datetime.now,
                             nullable=False)
 
     updated_at = db.Column(db.DateTime, 
                             default=datetime.datetime.now, 
-                            onupdate=datetime.datetime.now, 
+                            onupdate=datetime.datetime.now,
                             nullable=False)
 
 
