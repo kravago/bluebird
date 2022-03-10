@@ -1,5 +1,6 @@
 # mac stuff
 .DS_Store
+bluebird_dev
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
