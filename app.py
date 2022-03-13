@@ -17,7 +17,10 @@ connect_db(app)
 
 @app.route('/')
 def homepage():
-    return render_template('homepage.html')
+    if session['user_id']:
+        return render_template('homepage_user.html')
+    else:
+        return render_template('homepage.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -48,8 +51,16 @@ def login():
 
         if user:
             session['id'] = user.id
+            flash("Logged in Successfully!")
             return redirect('/')
         else: 
-            form.username.errors = ['Bad Username/Password']
+            flash("Bad Username/Password")
     
     return render_template('login.html', form=form)
+
+# TODO Routes:
+# @app.route("/search", methods=["GET", "POST"])
+
+# @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
+
+# @app.route("/settings/<int: user_id>", methods=["GET", "POST"])
