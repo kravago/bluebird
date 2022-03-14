@@ -1,4 +1,4 @@
-from models import db, User, Resort, Favorite, Search
+from models import db
 from app import app
 import datetime
 

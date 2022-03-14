@@ -85,6 +85,26 @@ class Resort(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
     name = db.Column(db.Text, nullable=False)
+
+    state = db.Column(db.Text, nullable=False)
+
+    lifts = db.Column(db.Integer)
+    
+    runs = db.Column(db.Integer)
+    
+    acres = db.Column(db.Float)
+    
+    green_percent = db.Column(db.Float)
+    
+    green_acres = db.Column(db.Float)
+    
+    blue_percent = db.Column(db.Float)
+    
+    blue_acres = db.Column(db.Float)
+    
+    black_percent = db.Column(db.Float)
+    
+    black_acres = db.Column(db.Float)
     
     lat = db.Column(db.Float, nullable=False)
     
@@ -92,12 +112,12 @@ class Resort(db.Model):
     
     created_at = db.Column(db.DateTime, 
                             default=datetime.datetime.now,
-                            nullable=False)
+                        )
 
     updated_at = db.Column(db.DateTime, 
                             default=datetime.datetime.now, 
                             onupdate=datetime.datetime.now,
-                            nullable=False)
+                        )
 
 
 class Favorite(db.Model):
@@ -128,10 +148,8 @@ class Search(db.Model):
 class State(db.Model):
     __tablename__ = "state"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
-    timestamp = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
-
     name = db.Column(db.String, nullable=False)
 
     abbr = db.Column(db.String, nullable=False)

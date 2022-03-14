@@ -17,4 +17,4 @@ class LoginForm(FlaskForm):
 
 
 class StateSearchForm(FlaskForm):
-    state = StringField("Search", validators=[InputRequired()])
+    state = StringField("Where do you ski?", validators=[InputRequired()])
