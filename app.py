@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, StateSearchForm
 
 
 app = Flask(__name__)
@@ -17,10 +17,13 @@ connect_db(app)
 
 @app.route('/')
 def homepage():
-    if session['user_id']:
-        return render_template('homepage_user.html')
+    form = StateSearchForm()
+
+    if session.get('user_id'):
+        user = User.query.get(session['user_id'])
+        return render_template('homepage_user.html', form=form, username=user.name)
     else:
-        return render_template('homepage.html')
+        return render_template('homepage.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -28,16 +31,19 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        name = form.username.data
-        pwd = form.password.data
+        user = User.authenticate(form)
 
-        user = User.register(form)
-        db.session.add(user)
-        db.session.commit()
+        if user:
+            name = form.username.data
+            pwd = form.password.data
 
-        session["user_id"] = user.id
-        flash("You have successfully registered your account!")
-        return redirect('/')
+            user = User.register(form)
+            db.session.add(user)
+            db.session.commit()
+
+            session["user_id"] = user.id
+            flash("You have successfully registered your account!")
+            return redirect('/')
 
     return render_template('register.html', form=form)
 
@@ -50,7 +56,7 @@ def login():
         user = User.authenticate(form)
 
         if user:
-            session['id'] = user.id
+            session['user_id'] = user.id
             flash("Logged in Successfully!")
             return redirect('/')
         else: 
@@ -58,8 +64,21 @@ def login():
     
     return render_template('login.html', form=form)
 
+
+@ app.route('/logout')
+def logout():
+    session.pop('user_id')
+    return redirect('/')
+
+
 # TODO Routes:
+
 # @app.route("/search", methods=["GET", "POST"])
+# def search():
+#     form = StateSearchForm()
+
+#     if form.validate_on_submit():
+
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
 

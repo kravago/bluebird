@@ -123,3 +123,17 @@ class Search(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
+
+
+class State(db.Model):
+    __tablename__ = "state"
+
+    id = db.Column(db.Integer, primary_key=True)
+    
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
+
+    name = db.Column(db.String, nullable=False)
+
+    abbr = db.Column(db.String, nullable=False)
+
+
