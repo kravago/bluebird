@@ -45,39 +45,29 @@ class User(db.Model):
     searched_resorts = db.relationship('Resort', backref='user', secondary='search')
     
 
-    # start_register
     @classmethod
     def register(cls, form):
         """Register user w/hashed password & return user."""
 
         hashed = bcrypt.generate_password_hash(form.password.data)
-        # turn bytestring into normal (unicode utf8) string
         hashed_utf8 = hashed.decode("utf8")
 
-        # return instance of user w/username and hashed pwd
         return cls(name=form.name.data,
                     email=form.email.data,
                     username=form.username.data, 
                     state=form.state.data,
                     password=hashed_utf8)
-    # end_register
 
-    # start_authenticate
+
     @classmethod
     def authenticate(cls, form):
-        """Validate that user exists & password is correct.
-
-        Return user if valid; else return False.
-        """
-
         u = User.query.filter_by(username=form.username.data).first()
 
         if u and bcrypt.check_password_hash(u.password, form.password.data):
-            # return user instance
             return u
         else:
             return False
-    # end_authenticate   
+
 
 class Resort(db.Model):
     __tablename__ = "resort"
