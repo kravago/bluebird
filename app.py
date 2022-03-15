@@ -19,11 +19,11 @@ connect_db(app)
 def homepage():
     form = StateSearchForm()
 
-    if session.get('user_id'):
-        user = User.query.get(session['user_id'])
-        return render_template('homepage_user.html', form=form, username=user.name)
-    else:
-        return render_template('homepage.html', form=form)
+    # if session.get('user_id'):
+    #     user = User.query.get(session['user_id'])
+    #     return render_template('homepage_user.html', form=form, username=user.name)
+    # else:
+    return render_template('homepage.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

@@ -5,21 +5,23 @@
 
 <form method="POST">
 
-    {{ form.hidden_tag() }}
-  
-    {% for field in form
+  {{ form.hidden_tag() }}
+
+  {% for field in form
     if field.widget.input_type != 'hidden' %}
-    <p>
+
+    <div class="form-group">
       {{ field.label }}
-      {{ field }}
-  
+      {{ field(class_="form-control") }}
+
       {% for error in field.errors %}
-      {{ error }}
+        {{ error }}
       {% endfor %}
-    </p>
-    {% endfor %}
-  
-    <button type="submit">Create Account</button>
+    </div>
+
+  {% endfor %}
+
+  <button class="btn btn-primary" type="submit">Create Account</button>
   
 </form>
 {% endblock %}
