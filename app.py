@@ -31,7 +31,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        user = User.authenticate(form)
+        user = User.register(form)
 
         if user:
             name = form.username.data
