@@ -42,7 +42,8 @@ def register():
             db.session.commit()
 
             session["user_id"] = user.id
-            flash("You have successfully registered your account!")
+            session["user_name"] = user.name
+            flash("You have successfully registered your account!", "alert-success")
             return redirect('/')
 
     return render_template('register.html', form=form)
@@ -57,10 +58,10 @@ def login():
 
         if user:
             session['user_id'] = user.id
-            flash("Logged in Successfully!")
+            flash("Logged in Successfully!", "alert-success")
             return redirect('/')
         else: 
-            flash("Bad Username/Password")
+            flash("Bad Username/Password", "alert-danger")
     
     return render_template('login.html', form=form)
 
