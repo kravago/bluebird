@@ -74,11 +74,13 @@ def logout():
 
 # TODO Routes:
 
-# @app.route("/search", methods=["GET", "POST"])
-# def search():
-#     form = StateSearchForm()
+@app.route("/search", methods=["POST"])
+def search():
+    form = StateSearchForm()
 
-#     if form.validate_on_submit():
+    # if form.validate_on_submit():
+    resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
+    return render_template('search_state_results.html', resorts=resorts_in_search)
 
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
