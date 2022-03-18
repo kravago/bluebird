@@ -18,11 +18,6 @@ connect_db(app)
 @app.route('/')
 def homepage():
     form = StateSearchForm()
-
-    # if session.get('user_id'):
-    #     user = User.query.get(session['user_id'])
-    #     return render_template('homepage_user.html', form=form, username=user.name)
-    # else:
     return render_template('homepage.html', form=form)
 
 
@@ -81,6 +76,15 @@ def search():
     # if form.validate_on_submit():
     resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
     return render_template('search_state_results.html', resorts=resorts_in_search)
+
+
+@app.route("/resort/<int:resort_id>", methods=["GET"])
+def show_resort(resort_id):
+    resort = Resort.query.get_or_404(resort_id)
+    lat, lon = resort.lat, resort.lon
+
+    # TODO: get forecast from api
+    pass
 
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])

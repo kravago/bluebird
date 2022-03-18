@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<!-- 
 <ul>
-    {% for resort in resorts %}
-    <li>{{ resort.name }}</li>
-    {% endfor %}
-</ul>
+  {% for resort in resorts %}
+  <li><a href="/resort/{{ resort.id }}">{{ resort.name }}</a></li>
+  {% endfor %}
+</ul> -->
 
+
+<div class="card-deck">
+  {% for resort in resorts %}
+  <div class="card">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title"><a href="/resort/{{ resort.id }}"></a>{{ resort.name }}</h5>
+      <p class="card-text">Lifts: 1 | Runs: 2 | Acres: 3</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}
