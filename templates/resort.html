@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for day in r.data[7] %}
+<div class="card-deck">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><a href="#">{{ day[valid_date] }}</a></h5>
+      <p class="card-text">High: {{ day[high_temp] }} | Low: {{ day[low_temp] }}</p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

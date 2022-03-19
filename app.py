@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search
 from forms import LoginForm, RegisterForm, StateSearchForm
+from secret import API_KEY, SECRET_KEY
+import requests
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = "verysecretdonttell"
+app.config['SECRET_KEY'] = SECRET_KEY
 
 # ORM Settings
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bluebird_dev'
@@ -83,9 +85,11 @@ def show_resort(resort_id):
     resort = Resort.query.get_or_404(resort_id)
     lat, lon = resort.lat, resort.lon
 
-    # TODO: get forecast from api
-    pass
-
+    # TODO: get forecast from api and pass json to return template
+    r = requests.get('https://api.weatherbit.io/v2.0/forecast/daily',
+                        params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I'}
+                    )
+    return render_template('resort.html', r=r.json())
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
 
