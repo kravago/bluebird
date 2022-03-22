@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for day in r.data[7] %}
+<h1>Weather for {{ resort.name }}</h1>
 <div class="card-deck">
+
+{% for day in r.data[:7] %}
   <div class="card">
+      <img class="card-img-top" src="https://www.weatherbit.io/static/img/icons/{{ day['weather']['icon'] }}.png" alt="{{ day['weather']['description'] }}">
     <div class="card-body">
-      <h5 class="card-title"><a href="#">{{ day[valid_date] }}</a></h5>
-      <p class="card-text">High: {{ day[high_temp] }} | Low: {{ day[low_temp] }}</p>
+      <h5 class="card-title"><a href="#">{{ day['datetime'] }}</a></h5>
+      <p class="card-text">High: {{ day['high_temp']|round|int }} Low: {{ (day['low_temp'])|round|int }}</p>
     </div>
   </div>
+  {% endfor %}
+
 </div>
-{% endfor %}
 
 {% endblock %}

@@ -89,7 +89,8 @@ def show_resort(resort_id):
     r = requests.get('https://api.weatherbit.io/v2.0/forecast/daily',
                         params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I'}
                     )
-    return render_template('resort.html', r=r.json())
+
+    return render_template('resort.html', r=r.json(), resort=resort)
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
 
