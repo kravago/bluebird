@@ -17,12 +17,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+        {% if session.get('user_id') %}
         <li class="nav-item">
           <a class="nav-link" href="#">favorites</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">settings</a>
         </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ml-auto">
 

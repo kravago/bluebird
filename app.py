@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, session
-from models import User, db, connect_db, User, Favorite, Resort, Search
+from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm
 from secret import API_KEY, SECRET_KEY
 import requests
@@ -17,9 +17,15 @@ app.config['SQLALCHEMY_ECHO'] = True
 # init db connection
 connect_db(app)
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def homepage():
     form = StateSearchForm()
+    form.state.choices = [(s.name, s.abbr) for s in State.query.all()]
+
+    if form.validate_on_submit():
+        resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
+        return render_template('search_state_results.html', resorts=resorts_in_search, form=form)
+
     return render_template('homepage.html', form=form)
 
 
@@ -63,22 +69,13 @@ def login():
     return render_template('login.html', form=form)
 
 
-@ app.route('/logout')
+@app.route('/logout')
 def logout():
     session.pop('user_id')
     return redirect('/')
 
 
 # TODO Routes:
-
-@app.route("/search", methods=["POST"])
-def search():
-    form = StateSearchForm()
-
-    # if form.validate_on_submit():
-    resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
-    return render_template('search_state_results.html', resorts=resorts_in_search)
-
 
 @app.route("/resort/<int:resort_id>", methods=["GET"])
 def show_resort(resort_id):
@@ -87,7 +84,7 @@ def show_resort(resort_id):
 
     # TODO: get forecast from api and pass json to return template
     r = requests.get('https://api.weatherbit.io/v2.0/forecast/daily',
-                        params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I'}
+                        params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I', 'days': 7}
                     )
 
     return render_template('resort.html', r=r.json(), resort=resort)

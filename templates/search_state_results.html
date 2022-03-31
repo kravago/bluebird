@@ -2,18 +2,22 @@
 
 {% block content %}
 
-{% for row in resorts|batch(3) %}
-<div class="card-deck">
-  {% for resort in row %}
-  <div class="card">
-    <!-- <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/02/14/03/03/ama-dablam-2064522_1280.jpg" alt="Card image cap"> -->
-    <div class="card-body">
-      <h5 class="card-title"><a href="/resort/{{ resort.id }}">{{ resort.name }}</a></h5>
-      <p class="card-text">Lifts: {{ resort.lifts }} | Runs: {{ resort.runs }}</p>
+{% if resorts|length == 0 %}
+<h1>No snow in your area!</h1>
+{% else %}
+  {% for row in resorts|batch(3) %}
+  <div class="card-deck">
+    {% for resort in row %}
+    <div class="card">
+      <!-- <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/02/14/03/03/ama-dablam-2064522_1280.jpg" alt="Card image cap"> -->
+      <div class="card-body">
+        <h5 class="card-title"><a href="/resort/{{ resort.id }}">{{ resort.name }}</a></h5>
+        <p class="card-text">Lifts: {{ resort.lifts }} | Runs: {{ resort.runs }}</p>
+      </div>
     </div>
+    {% endfor %}
   </div>
   {% endfor %}
-</div>
-{% endfor %}
+{% endif %}
 
 {% endblock %}

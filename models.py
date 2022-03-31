@@ -38,10 +38,10 @@ class User(db.Model):
 
     
     # relationships
-    favorites = db.relationship('Favorite', backref='users')
+    # favorites = db.relationship('Favorite', backref='users')
     resorts = db.relationship('Resort', backref='users', secondary='favorite')
 
-    searches = db.relationship('Search', backref='users')
+    # searches = db.relationship('Search', backref='users')
     searched_resorts = db.relationship('Resort', backref='user', secondary='search')
     
 
@@ -116,6 +116,7 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # user_id = db.Column(db.Integer)
     
     resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
     
