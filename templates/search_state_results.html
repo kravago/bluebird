@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'homepage.html' %}
 
-{% block content %}
+{% block results %}
 
 {% if resorts|length == 0 %}
 <h1>No snow in your area!</h1>
@@ -20,4 +20,4 @@
   {% endfor %}
 {% endif %}
 
-{% endblock %}
+{% endblock results%}

@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" action="/">
-  {{ form.hidden_tag() }}
 
-  {% for field in form
-  if field.widget.input_type != 'hidden' %}
-  <div class="form-group">
-    {{ field.label }}
-    {{ field(class_="form-control") }}
+<div class="container justify-content-center">
+  <form method="POST" action="/">
+    {{ form.hidden_tag() }}
 
-    {% for error in field.errors %}
-    {{ error }}
+    {% for field in form
+    if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+      {{ field.label }}
+      {{ field(class_="form-control") }}
+
+      {% for error in field.errors %}
+      {{ error }}
+      {% endfor %}
+    </div>
     {% endfor %}
-  </div>
-  {% endfor %}
-  <button class="btn btn-primary" type="submit">Find Resorts</button>
-</form>
-{% endblock %}
+    <button class="btn btn-primary" type="submit">Find Resorts</button>
+  </form>
+</div>
+
+<div class="container justify-content-center">
+  {% block results %}
+  {% endblock results %}
+</div>
+
+{% endblock content %}
 
