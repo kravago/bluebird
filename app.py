@@ -37,7 +37,11 @@ def register():
     if form.validate_on_submit():
 
         # check if email is unique
-        existing_user = User.query.filter_by(email=form.email.data)
+        existing_user = User.query.filter_by(email=form.email.data).all()
+
+        # import pdb
+        # pdb.set_trace()
+
         if existing_user:
             flash('Email is already taken', 'alert-danger')
             redirect('/register')
