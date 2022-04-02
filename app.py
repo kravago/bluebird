@@ -32,11 +32,16 @@ def homepage():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
+    form.state.choices = [(s.name, s.abbr) for s in State.query.all()]
 
     if form.validate_on_submit():
-        user = User.register(form)
 
-        if user:
+        # check if email is unique
+        existing_user = User.query.filter_by(email=form.email.data)
+        if existing_user:
+            flash('Email is already taken', 'alert-danger')
+            redirect('/register')
+        else:
             name = form.username.data
             pwd = form.password.data
 
@@ -88,6 +93,18 @@ def show_resort(resort_id):
                     )
 
     return render_template('resort.html', r=r.json(), resort=resort)
+
+@app.route("/favorite/add/<int:resort_id>", methods=["POST"])
+def add_favorite(resort_id):
+    '''adds resort to favorites list'''
+
+    if not session['user_id']:
+        flash('Unauthorized Access')
+        redirect('/')
+    
+    # TODO: finish method to add favorite
+    pass
+
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
 
