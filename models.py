@@ -116,11 +116,10 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # user_id = db.Column(db.Integer)
     
     resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
     
-    timestamp = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
 
 

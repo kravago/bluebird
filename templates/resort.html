@@ -16,7 +16,9 @@
   {% endfor %}
 
 </div>
+<form action="/favorite/add/{{ resort.id }}" method="POST">
+  <button class="btn btn-success">add favorite</button>
+</form>
 
-<button class="btn btn-success"><a href="/">add favorite</a></button>
 <button class="btn btn-danger"><a href="/">back</a></button>
 {% endblock %}

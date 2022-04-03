@@ -107,8 +107,11 @@ def add_favorite(resort_id):
         redirect('/')
     
     # TODO: finish method to add favorite
-    pass
-
+    f = Favorite(user_id=session['user_id'], resort_id=resort_id)
+    db.session.add(f)
+    db.session.commit()
+    flash('added to favorites!', 'alert-success')
+    return redirect(f"/resort/{resort_id}")
 
 # @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
 
