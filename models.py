@@ -36,14 +36,6 @@ class User(db.Model):
                             onupdate=datetime.datetime.now, 
                             nullable=False)
 
-    
-    # relationships
-    # favorites = db.relationship('Favorite', backref='users')
-    # resorts = db.relationship('Resort', backref='users', secondary='favorite')
-
-    # searches = db.relationship('Search', backref='users')
-    # searched_resorts = db.relationship('Resort', backref='user', secondary='search')
-    
 
     @classmethod
     def register(cls, form):
