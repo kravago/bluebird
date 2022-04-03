@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}favorites{% endblock %}
 {% block content %}
 
 <h1>favorite ski resorts:</h1>
@@ -7,7 +7,7 @@
 {% if favs %}
   <div class="list-group"></div>
     {% for f in favs %}
-        <a class="list-group-item list-group-item-action" href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</li>
+        <a class="list-group-item list-group-item-action" href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</a>
     {% endfor %}
 {% endif %}
 
