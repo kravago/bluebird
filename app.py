@@ -39,9 +39,6 @@ def register():
         # check if email is unique
         existing_user = User.query.filter_by(email=form.email.data).all()
 
-        # import pdb
-        # pdb.set_trace()
-
         if existing_user:
             flash('Email is already taken', 'alert-danger')
             redirect('/register')
@@ -106,13 +103,16 @@ def add_favorite(resort_id):
         flash('Unauthorized Access')
         redirect('/')
     
-    # TODO: finish method to add favorite
     f = Favorite(user_id=session['user_id'], resort_id=resort_id)
     db.session.add(f)
     db.session.commit()
     flash('added to favorites!', 'alert-success')
     return redirect(f"/resort/{resort_id}")
 
-# @app.route("/favorites/<int: user_id>", methods=["GET", "POST"])
+@app.route("/favorites/<int:user_id>", methods=["GET"])
+def show_favorites(user_id):
+    '''show the favorites of a user'''
+    favs = Favorite.query.filter_by(user_id=user_id).all()
+    return render_template('favorites.html', favs=favs)
 
 # @app.route("/settings/<int: user_id>", methods=["GET", "POST"])

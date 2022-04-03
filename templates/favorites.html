@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if favs %}
+
+    <ul>
+    {% for f in favs %}
+        <li><a href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endif %}
+{% endblock %}

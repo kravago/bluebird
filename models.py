@@ -39,10 +39,10 @@ class User(db.Model):
     
     # relationships
     # favorites = db.relationship('Favorite', backref='users')
-    resorts = db.relationship('Resort', backref='users', secondary='favorite')
+    # resorts = db.relationship('Resort', backref='users', secondary='favorite')
 
     # searches = db.relationship('Search', backref='users')
-    searched_resorts = db.relationship('Resort', backref='user', secondary='search')
+    # searched_resorts = db.relationship('Resort', backref='user', secondary='search')
     
 
     @classmethod
@@ -121,6 +121,7 @@ class Favorite(db.Model):
     
     timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
+    resort = db.relationship('Resort')
 
 
 class Search(db.Model):
