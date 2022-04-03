@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<h1>favorite ski resorts:</h1>
+
 {% if favs %}
-
-    <ul>
+  <div class="list-group"></div>
     {% for f in favs %}
-        <li><a href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</a></li>
+        <a class="list-group-item list-group-item-action" href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</li>
     {% endfor %}
-    </ul>
-
 {% endif %}
+
 {% endblock %}
