@@ -7,7 +7,16 @@
 {% if favs %}
   <div class="list-group"></div>
     {% for f in favs %}
-        <a class="list-group-item list-group-item-action" href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</a>
+        <form class="list-group-item list-group-item-action" action="/resort/{{ f.resort.id }}" method="POST">
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <p>{{ f.resort.name }}</p>
+            </div>
+            <div class="col-auto my-1">
+              <button class="btn btn-danger">x</button>
+            </div>
+          </div>
+        </form>
     {% endfor %}
 {% endif %}
 
