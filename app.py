@@ -115,4 +115,19 @@ def show_favorites(user_id):
     favs = Favorite.query.filter_by(user_id=user_id).all()
     return render_template('favorites.html', favs=favs)
 
+@app.route("/favorites/remove/<int:resort_id>", methods=['POST'])
+def remove_fav(resort_id):
+    '''remove favorite'''
+
+    if not session['user_id']:
+        flash('Unauthorized Access')
+        redirect('/')
+    
+    f = Favorite.query.filter_by(user_id=session['user_id'], resort_id=resort_id).first()
+    deleted_resort = f.resort.name
+    db.session.delete(f)
+    db.session.commit()
+    flash(f'{deleted_resort} has been removed', 'alert-success')
+    return redirect(f'/favorites/{session["user_id"]}')
+
 # @app.route("/settings/<int: user_id>", methods=["GET", "POST"])
