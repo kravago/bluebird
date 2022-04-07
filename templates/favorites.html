@@ -10,7 +10,7 @@
         <form class="list-group-item list-group-item-action" action="/favorites/remove/{{ f.resort.id }}" method="POST">
           <div class="form-row align-items-center">
             <div class="col-auto my-1">
-              <p>{{ f.resort.name }}</p>
+              <a href="/resort/{{ f.resort.id }}">{{ f.resort.name }}</a>
             </div>
             <div class="col-auto my-1">
               <button type="submit" class="btn btn-danger">x</button>
