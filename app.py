@@ -82,6 +82,23 @@ def logout():
 
 
 # TODO Routes:
+def find_bluebirds(forecast):
+    '''function to add a key to resort '''
+
+    for day in forecast['data']:
+        sunny_condition = (day['weather']['code'] == 800) or (day['weather']['code'] == 801)
+
+        if (day['snow'] > 0) and sunny_condition:
+            day['category'] = 'primary'
+            day['suggestion'] = 'bluebird day!'
+        elif sunny_condition:
+            day['category'] = 'success'
+            day['suggestion'] = 'sunny day to ski!'
+        else:
+            day['category'] = 'secondary'
+    
+    return forecast
+
 
 @app.route("/resort/<int:resort_id>", methods=["GET"])
 def show_resort(resort_id):
@@ -92,8 +109,11 @@ def show_resort(resort_id):
     r = requests.get('https://api.weatherbit.io/v2.0/forecast/daily',
                         params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I', 'days': 7}
                     )
+    fc = r.json()
 
-    return render_template('resort.html', r=r.json(), resort=resort)
+    formatted_fc = find_bluebirds(fc)
+
+    return render_template('resort.html', forecast=formatted_fc, resort=resort)
 
 @app.route("/favorite/add/<int:resort_id>", methods=["POST"])
 def add_favorite(resort_id):

@@ -4,9 +4,15 @@
 <h1>Weather for {{ resort.name }}</h1>
 <div class="card-deck">
 
-{% for day in r.data %}
-  <div class="card">
-      <img class="card-img-top" src="https://www.weatherbit.io/static/img/icons/{{ day['weather']['icon'] }}.png" alt="{{ day['weather']['description'] }}">
+{% for day in forecast.data %}
+  <div class="card border-{{ day['category'] }}">
+
+    {% if day['suggestion'] %}
+    <h5 class="card-header text-{{ day['category'] }}">{{ day['suggestion'] }}</h5>
+    {% endif %}
+
+    <img class="card-img-top" src="https://www.weatherbit.io/static/img/icons/{{ day['weather']['icon'] }}.png" alt="{{ day['weather']['description'] }}">
+    
     <div class="card-body">
       <h5 class="card-title">{{ day['datetime'] }}</h5>
       <p class="card-text">High: {{ day['high_temp']|round|int }} Low: {{ (day['low_temp'])|round|int }}</p>
