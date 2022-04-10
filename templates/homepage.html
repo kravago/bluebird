@@ -26,5 +26,21 @@
   {% endblock results %}
 </div>
 
+{% if searches %}
+<h1>recent searches:</h1>
+<div class="container justify-content-center">
+  <div class="card-deck">
+    {% for search in searches %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/resort/{{ search.id }}">{{ search.name }}</a></h5>
+        <p class="card-text">Lifts: {{ search.lifts }} | Runs: {{ search.runs }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
 {% endblock content %}
 

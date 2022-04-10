@@ -22,11 +22,15 @@ def homepage():
     form = StateSearchForm()
     form.state.choices = [(s.name, s.abbr) for s in State.query.all()]
 
+    # if logged in, show last 3 searches
+    searches = None
+    if session.get('user_id'):
+        searches = Search.query.filter_by(user_id=session['user_id']).order_by(Search.timestamp.desc()).count(3)
     if form.validate_on_submit():
         resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
-        return render_template('search_state_results.html', resorts=resorts_in_search, form=form)
+        return render_template('search_state_results.html', resorts=resorts_in_search, form=form, searches=searches)
 
-    return render_template('homepage.html', form=form)
+    return render_template('homepage.html', form=form, searches=searches)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -105,13 +109,18 @@ def show_resort(resort_id):
     resort = Resort.query.get_or_404(resort_id)
     lat, lon = resort.lat, resort.lon
 
-    # TODO: get forecast from api and pass json to return template
+    # get forecast from api and pass json to return template
     r = requests.get('https://api.weatherbit.io/v2.0/forecast/daily',
                         params={'key': API_KEY, 'lat': lat, 'lon': lon, 'units': 'I', 'days': 7}
                     )
     fc = r.json()
-
     formatted_fc = find_bluebirds(fc)
+
+    # store the user search history
+    if session['user_id']:
+        record = Search(user_id=session['user_id'], resort_id=resort_id)
+        db.session.add(record)
+        db.session.commit()
 
     return render_template('resort.html', forecast=formatted_fc, resort=resort)
 

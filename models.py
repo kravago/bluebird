@@ -36,7 +36,6 @@ class User(db.Model):
                             onupdate=datetime.datetime.now, 
                             nullable=False)
 
-
     @classmethod
     def register(cls, form):
         """Register user w/hashed password & return user."""
@@ -126,6 +125,8 @@ class Search(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     resort_id = db.Column(db.Integer, db.ForeignKey('resort.id'))
+
+    searched_resort = db.relationship('Resort')
 
 
 class State(db.Model):
