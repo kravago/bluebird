@@ -25,7 +25,7 @@ def homepage():
     # if logged in, show last 3 searches
     searches = None
     if session.get('user_id'):
-        searches = Search.query.filter_by(user_id=session['user_id']).order_by(Search.timestamp.desc()).count(3)
+        searches = Search.query.filter_by(user_id=session['user_id']).order_by(Search.timestamp.desc())[:3]
     if form.validate_on_submit():
         resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
         return render_template('search_state_results.html', resorts=resorts_in_search, form=form, searches=searches)
