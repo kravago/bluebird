@@ -7,9 +7,9 @@
 {% for day in forecast.data %}
   <div class="card border-{{ day['category'] }}">
 
-    {% if day['suggestion'] %}
+    <!-- {% if day['suggestion'] %}
     <h5 class="card-header text-{{ day['category'] }}">{{ day['suggestion'] }}</h5>
-    {% endif %}
+    {% endif %} -->
 
     <img class="card-img-top" src="https://www.weatherbit.io/static/img/icons/{{ day['weather']['icon'] }}.png" alt="{{ day['weather']['description'] }}">
     
@@ -18,8 +18,14 @@
       <p class="card-text">High: {{ day['high_temp']|round|int }} Low: {{ (day['low_temp'])|round|int }}</p>
       <p class="card-text">Snow: {{ day['snow'] }} in</p>
     </div>
+
+    {% if day['suggestion'] %}
+    <h5 class="card-footer text-{{ day['category'] }}">{{ day['suggestion'] }}</h5>
+    {% endif %}
   </div>
-  {% endfor %}
+
+
+{% endfor %}
 
 </div>
 <form action="/favorite/add/{{ resort.id }}" method="POST">

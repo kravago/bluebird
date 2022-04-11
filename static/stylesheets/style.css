@@ -2,3 +2,7 @@ body {
     background-image: url('/static/images/pexels-denis-linine-714258.jpg');
     background-color: black;
 }
+
+.bluebird-icon {
+    object-fit: contain;
+}
