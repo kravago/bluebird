@@ -7,10 +7,6 @@
 {% for day in forecast.data %}
   <div class="card border-{{ day['category'] }}">
 
-    <!-- {% if day['suggestion'] %}
-    <h5 class="card-header text-{{ day['category'] }}">{{ day['suggestion'] }}</h5>
-    {% endif %} -->
-
     <img class="card-img-top" src="https://www.weatherbit.io/static/img/icons/{{ day['weather']['icon'] }}.png" alt="{{ day['weather']['description'] }}">
     
     <div class="card-body">
@@ -20,7 +16,7 @@
     </div>
 
     {% if day['suggestion'] %}
-    <h5 class="card-footer text-{{ day['category'] }}">{{ day['suggestion'] }}</h5>
+    <h5 class="card-footer bg-{{ day['category'] }} text-white">{{ day['suggestion'] }}</h5>
     {% endif %}
   </div>
 
@@ -32,5 +28,5 @@
   <button class="btn btn-success">add favorite</button>
 </form>
 
-<button class="btn btn-danger"><a href="/">back</a></button>
+<button class="btn btn-danger" onclick="history.back()">back</button>
 {% endblock %}
