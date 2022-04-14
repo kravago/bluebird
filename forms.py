@@ -1,3 +1,4 @@
+from unicodedata import name
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField, SelectField
 from wtforms.validators import InputRequired, Email
@@ -18,3 +19,12 @@ class LoginForm(FlaskForm):
 
 class StateSearchForm(FlaskForm):
     state = SelectField("Where do you ski?", validators=[InputRequired()])
+
+
+class UpdateUserForm(FlaskForm):
+    username = StringField("username")
+    name = StringField("name")
+    email = StringField("email")
+    state = StringField("state")
+    password = StringField("password")
+    confirm_password = StringField("confirm password") 

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search, State
-from forms import LoginForm, RegisterForm, StateSearchForm
+from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from secret import API_KEY, SECRET_KEY
 import requests
 
@@ -20,23 +20,24 @@ connect_db(app)
 @app.route('/', methods=["GET", "POST"])
 def homepage():
     form = StateSearchForm()
-    form.state.choices = [(s.name, s.abbr) for s in State.query.all()]
+    form.state.choices = [(s.name, s.name) for s in State.query.all()]
 
     # if logged in, show last 3 searches
     searches = None
     if session.get('user_id'):
         searches = Search.query.filter_by(user_id=session['user_id']).order_by(Search.timestamp.desc())[:3]
+
     if form.validate_on_submit():
         resorts_in_search = Resort.query.filter(Resort.state == form.state.data).all()
+        
         return render_template('search_state_results.html', resorts=resorts_in_search, form=form, searches=searches)
 
     return render_template('homepage.html', form=form, searches=searches)
 
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    form.state.choices = [(s.name, s.abbr) for s in State.query.all()]
+    form.state.choices = [(s.name, s.name) for s in State.query.all()]
 
     if form.validate_on_submit():
 
@@ -61,7 +62,6 @@ def register():
 
     return render_template('register.html', form=form)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -78,14 +78,11 @@ def login():
     
     return render_template('login.html', form=form)
 
-
 @app.route('/logout')
 def logout():
     session.pop('user_id')
     return redirect('/')
 
-
-# TODO Routes:
 def find_bluebirds(forecast):
     '''function to add a key to resort '''
 
@@ -102,7 +99,6 @@ def find_bluebirds(forecast):
             day['category'] = 'secondary'
     
     return forecast
-
 
 @app.route("/resort/<int:resort_id>", methods=["GET"])
 def show_resort(resort_id):
@@ -159,4 +155,14 @@ def remove_fav(resort_id):
     flash(f'{deleted_resort} has been removed', 'alert-success')
     return redirect(f'/favorites/{session["user_id"]}')
 
-# @app.route("/settings/<int: user_id>", methods=["GET", "POST"])
+@app.route("/settings/<int:user_id>", methods=["GET", "POST"])
+def show_settings(user_id):
+    '''controls updating user info'''
+
+    form = UpdateUserForm()
+
+    if form.validate_on_submit():
+        # if passwords on form match, update the user form
+        u = User.query.get_or_404(user_id)
+        
+    return render_template('settings.html', form=form)
