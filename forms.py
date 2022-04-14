@@ -22,9 +22,9 @@ class StateSearchForm(FlaskForm):
 
 
 class UpdateUserForm(FlaskForm):
-    username = StringField("username")
-    name = StringField("name")
-    email = StringField("email")
-    state = StringField("state")
-    password = StringField("password")
-    confirm_password = StringField("confirm password") 
+    username = StringField("username", validators=[InputRequired()])
+    name = StringField("name", validators=[InputRequired()])
+    email = StringField("email", validators=[InputRequired(), Email()])
+    state = SelectField("state", validators=[InputRequired()])
+    password = StringField("password", validators=[InputRequired()])
+    confirm_password = StringField("confirm password", validators=[InputRequired()]) 

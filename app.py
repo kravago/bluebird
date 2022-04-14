@@ -3,6 +3,7 @@ from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from secret import API_KEY, SECRET_KEY
 import requests
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
@@ -159,10 +160,32 @@ def remove_fav(resort_id):
 def show_settings(user_id):
     '''controls updating user info'''
 
-    form = UpdateUserForm()
-
+    u = User.query.get_or_404(user_id)
+    form = UpdateUserForm(obj=u)
+    # form.password.data = None
+    form.state.choices = [(s.name, s.name) for s in State.query.all()]
+    
     if form.validate_on_submit():
-        # if passwords on form match, update the user form
-        u = User.query.get_or_404(user_id)
-        
+
+        print("*" * 200)
+        print(form.password.data == form.confirm_password.data)
+        print(form.password.data)
+        print(form.confirm_password.data)
+
+        if form.password.data == form.confirm_password.data:
+            # if passwords on form match, update the user form
+
+            u = User.register(form)
+            u.username = form.username.data
+            u.name = form.name.data
+            u.email = form.email.data
+            u.state = form.state.data
+            u.password = form.password.data
+            db.session.commit()
+            return redirect(f'/settings/{user_id}')
+            
+        else: 
+            flash("Passwords do not match", "alert-danger")
+            return redirect(f'/settings/{user_id}')
+
     return render_template('settings.html', form=form)
