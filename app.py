@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
+from flask_bcrypt import Bcrypt
 from secret import API_KEY, SECRET_KEY
 import requests
-from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
@@ -14,6 +14,9 @@ app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bluebird_dev'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+
+# bcrypt
+bcrypt = Bcrypt()
 
 # init db connection
 connect_db(app)
@@ -162,30 +165,18 @@ def show_settings(user_id):
 
     u = User.query.get_or_404(user_id)
     form = UpdateUserForm(obj=u)
-    # form.password.data = None
     form.state.choices = [(s.name, s.name) for s in State.query.all()]
     
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
+        u.username = form.username.data
+        u.name = form.name.data
+        u.email = form.email.data
+        u.state = form.state.data
+        u.password = bcrypt.generate_password_hash(form.password.data)
 
-        print("*" * 200)
-        print(form.password.data == form.confirm_password.data)
-        print(form.password.data)
-        print(form.confirm_password.data)
-
-        if form.password.data == form.confirm_password.data:
-            # if passwords on form match, update the user form
-
-            u = User.register(form)
-            u.username = form.username.data
-            u.name = form.name.data
-            u.email = form.email.data
-            u.state = form.state.data
-            u.password = form.password.data
-            db.session.commit()
-            return redirect(f'/settings/{user_id}')
-            
-        else: 
-            flash("Passwords do not match", "alert-danger")
-            return redirect(f'/settings/{user_id}')
+        db.session.commit()
+        flash('user profile updated', 'alert-success')
+        return redirect(f'/settings/{user_id}')
+    
 
     return render_template('settings.html', form=form)

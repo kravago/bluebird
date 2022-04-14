@@ -1,7 +1,7 @@
 from unicodedata import name
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, SelectField
-from wtforms.validators import InputRequired, Email
+from wtforms import StringField, PasswordField, EmailField, SelectField, PasswordField
+from wtforms.validators import InputRequired, Email, Length, EqualTo
 
 
 class RegisterForm(FlaskForm):
@@ -26,5 +26,5 @@ class UpdateUserForm(FlaskForm):
     name = StringField("name", validators=[InputRequired()])
     email = StringField("email", validators=[InputRequired(), Email()])
     state = SelectField("state", validators=[InputRequired()])
-    password = StringField("password", validators=[InputRequired()])
-    confirm_password = StringField("confirm password", validators=[InputRequired()]) 
+    password = PasswordField("password", validators=[InputRequired(), EqualTo('confirm', 'passwords must match')])
+    confirm = PasswordField("repeat password")
