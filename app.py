@@ -4,7 +4,7 @@ from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from flask_bcrypt import Bcrypt
 from secret import API_KEY, SECRET_KEY
 import requests
-
+import datetime
 
 app = Flask(__name__)
 
@@ -104,6 +104,15 @@ def find_bluebirds(forecast):
     
     return forecast
 
+def format_dates(forecast):
+    '''function to add day, month, and day of the week'''
+    for day in forecast['data']:
+        d = datetime.strptime(day['datetime'], '%Y-%m-%d')
+        day['dow'] = d.strftime("%a")
+        day['month'] = d.strftime("%a")
+        day['dow'] = d.strftime("%a")
+
+
 @app.route("/resort/<int:resort_id>", methods=["GET"])
 def show_resort(resort_id):
     resort = Resort.query.get_or_404(resort_id)
@@ -177,6 +186,5 @@ def show_settings(user_id):
         db.session.commit()
         flash('user profile updated', 'alert-success')
         return redirect(f'/settings/{user_id}')
-    
 
     return render_template('settings.html', form=form)
