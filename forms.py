@@ -27,4 +27,4 @@ class UpdateUserForm(FlaskForm):
     email = StringField("email", validators=[InputRequired(), Email()])
     state = SelectField("state", validators=[InputRequired()])
     password = PasswordField("password", validators=[InputRequired(), EqualTo('confirm', 'passwords must match')])
-    confirm = PasswordField("repeat password")
+    confirm = PasswordField("repeat password", validators=[InputRequired()])
