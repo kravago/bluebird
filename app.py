@@ -3,12 +3,12 @@ from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from flask_bcrypt import Bcrypt
 from secret import API_KEY, SECRET_KEY
-import requests
+import requests, os
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'yeaaahbaby')
 
 # ORM Settings
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bluebird_dev'
