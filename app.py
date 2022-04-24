@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from flask_bcrypt import Bcrypt
-from secret import SECRET_API_KEY, SECRET_KEY
 import requests, os, re
 
 
@@ -20,7 +19,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 # api key
-API_KEY = os.environ.get('API_KEY', SECRET_API_KEY)
+API_KEY = os.environ.get('API_KEY', None)
+if API_KEY is None:
+    from secret import SECRET_API_KEY
+    API_KEY = SECRET_API_KEY
+    
 # bcrypt
 bcrypt = Bcrypt()
 
@@ -123,7 +126,7 @@ def show_resort(resort_id):
     formatted_fc = find_bluebirds(fc)
 
     # store the user search history
-    if session['user_id']:
+    if session.get('user_id'):
         record = Search(user_id=session['user_id'], resort_id=resort_id)
         db.session.add(record)
         db.session.commit()
