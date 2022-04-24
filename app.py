@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, session
 from models import User, db, connect_db, User, Favorite, Resort, Search, State
 from forms import LoginForm, RegisterForm, StateSearchForm, UpdateUserForm
 from flask_bcrypt import Bcrypt
-from secret import API_KEY, SECRET_KEY
+from secret import SECRET_API_KEY, SECRET_KEY
 import requests, os, re
 
 
@@ -14,12 +14,13 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'yeaaahbaby')
 uri = os.environ.get('DATABASE_URL', 'postgresql:///bluebird_dev')
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-    
-app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
+# api key
+API_KEY = os.environ.get('API_KEY', SECRET_API_KEY)
 # bcrypt
 bcrypt = Bcrypt()
 
