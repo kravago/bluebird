@@ -302,7 +302,7 @@ COPY public.resort (id, name, state, lifts, runs, acres, green_percent, green_ac
 270	Bear Mountain CA	California	12	\N	748	0.3	224.4	0.4	299.2	0.3	224.4	37.1	-119.1	\N	\N
 271	Bear Paw MT	Montana	1	11	80	0.25	20	0.25	20	0.5	40	41.78	-123.66	\N	\N
 272	Bear Valley Mt CA	California	9	75	1680	0.25	420	0.4	672	0.35	588	39.2	-122.44	\N	\N
-273	Bear's Den ND	North Dakota	3	8	30	0.25	7.5	0.5	15	0.25	7.5	46.53	-97.95	\N	\N
+273	Bears Den ND	North Dakota	3	8	30	0.25	7.5	0.5	15	0.25	7.5	46.53	-97.95	\N	\N
 274	Beaver Creek CO	Colorado	25	149	1832	0.19	348.08	0.64	1172.48	0.17	311.44	39.61	-106.53	\N	\N
 275	Beaver Mt UT	Utah	5	47	828	0.25	207	0.4	331.2	0.35	289.8	41.97	-111.57	\N	\N
 276	Beech Mountain NC	North Carolina	10	15	95	0.3	28.5	0.4	38	0.3	28.5	36.22	-81.88	\N	\N
@@ -375,7 +375,7 @@ COPY public.resort (id, name, state, lifts, runs, acres, green_percent, green_ac
 343	Crystal Mountain WA	Washington	12	57	2600	0.11	286	0.54	1404	0.35	910	46.92	-121.52	\N	\N
 344	Dartmouth Skiway NH	New Hampshire 	4	31	107	0.24	25.68	0.5	53.5	0.26	27.82	43.2	-71.56	\N	\N
 345	Dear Valley UT	Utah	21	100	2026	0.27	547.02	0.4	810.4	0.33	668.58	40.61	-111.5	\N	\N
-346	Devil's Head WI	Wisconsin	11	30	300	0.3	90	0.4	120	0.3	90	46.22	-89.26	\N	\N
+346	Devils Head WI	Wisconsin	11	30	300	0.3	90	0.4	120	0.3	90	46.22	-89.26	\N	\N
 347	Diamond Peak NV	Nevada	6	31	655	0.18	117.9	0.46	301.3	0.36	235.8	39.58	-115.81	\N	\N
 348	Discovery Basin MT	Montana	7	67	2200	0.2	440	0.25	550	0.55	1210	46.26	-112.26	\N	\N
 349	Dodge Ridge CA	California	12	67	852	0.2	170.4	0.4	340.8	0.4	340.8	38.14	-120.03	\N	\N
@@ -488,7 +488,7 @@ COPY public.resort (id, name, state, lifts, runs, acres, green_percent, green_ac
 456	Mt. Southington CT 	Connecticut	7	14	51	0.33	16.83	0.42	21.42	0.25	12.75	41.61	-72.94	\N	\N
 457	Mt. Spokane WA	Washington	5	45	1425	0.23	327.75	0.45	641.25	0.32	456	47.93	-117.12	\N	\N
 458	Mt. Zion MI	Michigan	2	10	20	0.25	5	0.5	10	0.25	5	46.47	-90.16	\N	\N
-459	Mulligan's Hollow MI	Michigan	5	6	7	0.5	3.5	0.5	3.5	\N	0	43.06	-86.22	\N	\N
+459	Mulligans Hollow MI	Michigan	5	6	7	0.5	3.5	0.5	3.5	\N	0	43.06	-86.22	\N	\N
 460	Mystic Mountain PA	Pennsylvania	3	6	25	0.4	10	0.35	8.75	0.25	6.25	39.57	-79.19	\N	\N
 461	Nashoba Valley MA	Massachusetts 	9	17	59	0.2	11.8	0.47	27.73	0.33	19.47	42.48	-71.49	\N	\N
 462	New Hermon ME	Maine	3	18	75	0.4	30	0.3	22.5	0.3	22.5	44.44	-69.52	\N	\N
@@ -502,7 +502,7 @@ COPY public.resort (id, name, state, lifts, runs, acres, green_percent, green_ac
 470	Park City Mt UT	Utah	41	344	7300	0.09	657	0.51	3723	0.4	2920	40.68	-111.48	\N	\N
 471	Pats Peak NH	New Hampshire 	10	23	90	0.5	45	0.18	16.2	0.32	28.8	43.2	-71.56	\N	\N
 472	Pebble Creek ID	Idaho	3	54	1100	0.12	132	0.35	385	0.53	583	42.74	-112.03	\N	\N
-473	Peek 'n Peak NY	New York	8	27	105	0.26	27.3	0.52	54.6	0.22	23.1	42.06	-79.74	\N	\N
+473	Peek n Peak NY	New York	8	27	105	0.26	27.3	0.52	54.6	0.22	23.1	42.06	-79.74	\N	\N
 474	Perfect North IN	Indiana	11	23	100	0.25	25	0.5	50	0.25	25	40.78	-89.62	\N	\N
 475	Petoskey MI	Michigan	1	1	36	\N	0	1	36	\N	0	45.36	-84.95	\N	\N
 476	Pico Mountain VT	Vermont	7	50	214	0.2	42.8	0.48	102.72	0.32	68.48	43.86	-72.88	\N	\N
@@ -547,7 +547,7 @@ COPY public.resort (id, name, state, lifts, runs, acres, green_percent, green_ac
 515	Ski Sundown CT	Connecticut	5	15	65	0.5	32.5	0.25	16.25	0.25	16.25	41.6	-73.09	\N	\N
 516	Ski Ward MA 	Massachusetts 	6	9	45	0.3	13.5	0.6	27	0.1	4.5	42.4	-71.39	\N	\N
 517	Sleeping Giant WY	Wyoming	3	49	184	0.15	27.6	0.41	75.44	0.44	80.96	44.52	-109.84	\N	\N
-518	Smuggler's Notch VT	Vermont	8	78	1000	0.19	190	0.5	500	0.31	310	44.55	-72.79	\N	\N
+518	Smugglers Notch VT	Vermont	8	78	1000	0.19	190	0.5	500	0.31	310	44.55	-72.79	\N	\N
 519	Snow Creek MO	Missouri	6	12	25	0.3	7.5	0.6	15	0.1	2.5	36.98	-90.36	\N	\N
 520	Snow King WY	Wyoming	5	31	400	0.15	60	0.25	100	0.6	240	43.46	-110.76	\N	\N
 521	Snow Ridge NY	New York	6	22	130	0.2	26	0.55	71.5	0.25	32.5	42.03	-74.09	\N	\N
