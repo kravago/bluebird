@@ -6,7 +6,7 @@ import requests, os, re
 
 
 app = Flask(__name__)
-
+# app.config['WTF_CSRF_ENABLED'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'yeaaahbaby')
 
 # ORM Settings
