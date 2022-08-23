@@ -84,6 +84,7 @@ def login():
 
         if user:
             session['user_id'] = user.id
+            session['user_name'] = user.name
             flash("Logged in Successfully!", "alert-success")
             return redirect('/')
         else: 
