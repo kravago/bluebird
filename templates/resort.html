@@ -24,7 +24,11 @@
 {% endfor %}
 
 </div>
+{% if session[user_id] %}
 <form action="/favorite/add/{{ resort.id }}" method="POST">
+{% else %}
+<form action="/register" method="POST">
+{% endif %}
   <button class="btn btn-success">add favorite</button>
 </form>
 
