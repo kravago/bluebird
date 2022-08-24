@@ -24,7 +24,7 @@
 {% endfor %}
 
 </div>
-{% if session[user_id] %}
+{% if session.get("user_id") %}
 <form action="/favorite/add/{{ resort.id }}" method="POST">
 {% else %}
 <form action="/register" method="POST">
